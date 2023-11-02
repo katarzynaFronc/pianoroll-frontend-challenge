@@ -21,8 +21,19 @@ class PianoRollDisplay {
   preparePianoRollCard(rollId) {
     const cardDiv = document.createElement("div");
     cardDiv.classList.add("piano-roll-card");
+    const container = document.querySelector("#pianoRollContainer");
 
     // Create and append other elements to the card container as needed
+
+    const leftColumn = document.createElement("section");
+    leftColumn.classList.add("leftColumn");
+    const rightColumn = document.createElement("section");
+    rightColumn.classList.add("rightColumn");
+
+    container.appendChild(leftColumn);
+    container.appendChild(rightColumn);
+
+    // ----------------------------------------------------------------
     const descriptionDiv = document.createElement("div");
     descriptionDiv.classList.add("description");
     descriptionDiv.textContent = `This is a piano roll number ${rollId}`;
@@ -51,8 +62,8 @@ class PianoRollDisplay {
       const partData = this.data.slice(start, end);
 
       const { cardDiv, svg } = this.preparePianoRollCard(it);
-
-      pianoRollContainer.appendChild(cardDiv);
+      const rightColumn = document.querySelector(".rightColumn");
+      rightColumn.appendChild(cardDiv);
       const roll = new PianoRoll(svg, partData);
     }
   }
