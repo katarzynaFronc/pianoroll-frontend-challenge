@@ -33,18 +33,10 @@ body {
 
 #pianoRollContainer {
   display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
-.rightColumn {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100vw;
-}
-
-.leftColumn {
-  width: auto;
+svg {
+  pointer-events: none;
 }
 
 h1 {
@@ -71,10 +63,45 @@ button {
   border: 1px solid #ccc;
   margin-bottom: 10px;
   padding: 10px;
-  width: 25%;
+  width: 20%;
   box-sizing: border-box;
+  cursor: pointer;
 }
 
 .description {
   margin-top: 10px;
+}
+
+.rightColumn {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100vw;
+  gap: 1rem;
+}
+
+.leftColumn {
+  width: auto;
+}
+
+.big-card {
+  order: -1;
+  width: 90%;
+}
+
+.small-card {
+  width: 90%;
+}
+
+.left-large {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+}
+
+.right-narrow {
+  width: 20%;
+  max-height: 80vh;
+  overflow-y: auto;
 }

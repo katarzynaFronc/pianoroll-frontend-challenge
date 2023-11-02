@@ -21,17 +21,60 @@ class PianoRollDisplay {
   preparePianoRollCard(rollId) {
     const cardDiv = document.createElement("div");
     cardDiv.classList.add("piano-roll-card");
-    const container = document.querySelector("#pianoRollContainer");
+    cardDiv.id = `cardDiv${rollId}`;
 
     // Create and append other elements to the card container as needed
 
-    const leftColumn = document.createElement("section");
-    leftColumn.classList.add("leftColumn");
-    const rightColumn = document.createElement("section");
-    rightColumn.classList.add("rightColumn");
+    const clickCard = (e) => {
+      if (!e.target.classList.contains("piano-roll-card")) {
+        return;
+      } else {
+        // console.log(e.target);
 
-    container.appendChild(leftColumn);
-    container.appendChild(rightColumn);
+        const actual = e.target;
+        const rightColumn = actual.parentElement;
+        const leftColumn = rightColumn.previousElementSibling;
+
+        if (leftColumn.children[0]) {
+          const oldCard = leftColumn.children[0];
+          leftColumn.removeChild(oldCard);
+          rightColumn.appendChild(oldCard);
+        }
+
+        leftColumn.classList.remove("leftColumn");
+        leftColumn.classList.add("left-large");
+        rightColumn.classList.remove("rightColumn");
+        rightColumn.classList.add("right-narrow");
+
+        const all = document.querySelectorAll(".piano-roll-card");
+        all.forEach((e) => {
+          e.classList.remove("small-card", "big-card");
+        });
+
+        actual.classList.add("big-card");
+        leftColumn.appendChild(actual);
+
+        const smallCards = document.querySelectorAll(".piano-roll-card:not(.big-card)");
+
+        smallCards.forEach((smallCard) => {
+          if (smallCard !== actual) {
+            smallCard.classList.remove("big-card");
+            smallCard.classList.add("small-card");
+          }
+        });
+
+        const cards = Array.from(document.querySelectorAll(".small-card"));
+        cards.sort((a, b) => {
+          const idA = parseInt(a.id.split("cardDiv")[1]);
+          const idB = parseInt(b.id.split("cardDiv")[1]);
+
+          return idA - idB;
+        });
+        cards.forEach((cardDiv) => rightColumn.appendChild(cardDiv));
+      }
+    };
+
+    cardDiv.addEventListener("click", clickCard);
 
     // ----------------------------------------------------------------
     const descriptionDiv = document.createElement("div");
@@ -56,6 +99,17 @@ class PianoRollDisplay {
 
     const pianoRollContainer = document.getElementById("pianoRollContainer");
     pianoRollContainer.innerHTML = "";
+
+    const container = document.querySelector("#pianoRollContainer");
+
+    const leftColumn = document.createElement("section");
+    leftColumn.classList.add("leftColumn");
+    const rightColumn = document.createElement("section");
+    rightColumn.classList.add("rightColumn");
+
+    container.appendChild(leftColumn);
+    container.appendChild(rightColumn);
+
     for (let it = 0; it < 20; it++) {
       const start = it * 60;
       const end = start + 60;
