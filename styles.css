@@ -1,16 +1,14 @@
 :root {
-  --primary-color: #fff;
-  --secondary-color: #ececec;
-  --third-color: #da674a;
-  --fourth-color: #16161d;
+  --primary-color: #ececec;
+  --secondary-color: #16161d;
   --background-cards-color: #4b4b4f;
   --background-cards-light-color: #808080;
-  --scroll-hover-color: #8ab87a;
+  --scroll-hover-color: #608055;
 
   --primary-text-color: #16161d;
   --secondary-text-color: #ececec;
 
-  --primary-text-font: ;
+  --primary-text-font: "MuseoModerno", sans-serif;
   --secondary-text-font: "Poppins", sans-serif;
 }
 
@@ -37,8 +35,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: var(--fourth-color);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* optional drop shadow */
+  background-color: #608055;
+  box-shadow: 0 0 10px var(--secondary-color);
 }
 
 .logo-container img {
@@ -60,11 +58,11 @@ h1 {
   padding: 1rem;
   margin: 0;
   background-color: var(--background-cards-color);
-  border-bottom: 1px solid var(--secondary-color);
+  border-bottom: 1px solid var(--primary-color);
 }
 
 .piano-roll-svg {
-  border: 2px solid var(--fourth-color);
+  border: 2px solid var(--secondary-color);
   width: 100%;
 }
 
@@ -78,7 +76,7 @@ h1 {
   border-radius: 1rem;
   background-color: var(--background-cards-light-color);
   color: var(--secondary-text-color);
-  box-shadow: 0 0 10px var(--fourth-color);
+  box-shadow: 0 0 10px var(--secondary-color);
 }
 
 .card-hover:hover {
@@ -136,6 +134,11 @@ svg {
 
 .big-card svg {
   pointer-events: all;
+  height: 30rem;
+}
+
+.big-card .description {
+  font-size: 1.5rem;
 }
 
 @media (min-width: 750px) {
@@ -166,10 +169,6 @@ svg {
   }
 }
 
-.backgroundStartColor {
-  color: var(--third-color);
-}
-
 ::-webkit-scrollbar {
   width: 1rem;
 }
@@ -180,7 +179,7 @@ svg {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--secondary-color);
+  background: var(--primary-color);
   box-shadow: inset 0 0 5px var(--background-cards-light-color);
   border-radius: 10px;
 }
