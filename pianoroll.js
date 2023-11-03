@@ -13,6 +13,14 @@ export default class PianoRoll {
   constructor(svgElement, sequence) {
     this.svgElement = svgElement;
 
+    if (this.svgElement) {
+      this.svgElement.addEventListener("mousedown", this.handleMouseDown.bind(this));
+      this.svgElement.addEventListener("mousemove", this.handleMouseMove.bind(this));
+      this.svgElement.addEventListener("mouseup", this.handleMouseUp.bind(this));
+    } else {
+      console.error(`SVG element with id ${svgElement} does not exist`);
+    }
+
     this.end = null;
 
     // PianoRoll brand #5DB5D5
@@ -30,12 +38,6 @@ export default class PianoRoll {
     this.svgElement.setAttribute("preserveAspectRatio", "none");
 
     this.drawPianoRoll(sequence);
-
-    if (this.svgElement) {
-      this.svgElement.addEventListener("click", this.handleClick.bind(this));
-    } else {
-      console.error(`SVG element with id ${svgElement} does not exist`);
-    }
   }
 
   timeToX(time) {
@@ -140,7 +142,7 @@ export default class PianoRoll {
     }
   }
 
-  handleClick(event) {
+  handleMouseDown(event) {
     event.preventDefault();
 
     if (this.svgElement) {
@@ -148,19 +150,34 @@ export default class PianoRoll {
       const x = event.clientX - rect.left;
       const time = (this.end * x) / rect.width;
 
-      console.log(`Clicked at x = ${x}, time = ${time}`);
+      this.startSelection = time;
+    }
+  }
 
-      if (!this.startSelection) {
-        this.startSelection = time;
-      } else if (!this.endSelection) {
-        this.endSelection = time;
-        this.highlightSelection();
-      }
+  handleMouseMove(event) {
+    event.preventDefault();
+
+    if (this.svgElement && this.startSelection) {
+      const rect = this.svgElement.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const time = (this.end * x) / rect.width;
+      this.endSelection = time;
+      this.highlightSelection();
+    }
+  }
+
+  handleMouseUp(event) {
+    event.preventDefault();
+
+    if (this.svgElement) {
+      console.log(`Selected passage: start = ${this.startSelection}, end = ${this.endSelection}`);
+      this.startSelection = null;
+      this.endSelection = null;
     }
   }
 
   highlightSelection() {
-    console.log(`Highlighting selection: start = ${this.startSelection}, end = ${this.endSelection}`);
+    this.removeSelection();
 
     // start of the selection
     const startLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
@@ -169,6 +186,7 @@ export default class PianoRoll {
     startLine.setAttribute("x2", this.startSelection);
     startLine.setAttribute("y2", this.svgElement.getAttribute("height"));
     this.svgElement.appendChild(startLine);
+    this.startLine = startLine;
 
     // end of the selection
     const endLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
@@ -177,6 +195,7 @@ export default class PianoRoll {
     endLine.setAttribute("x2", this.endSelection);
     endLine.setAttribute("y2", this.svgElement.getAttribute("height"));
     this.svgElement.appendChild(endLine);
+    this.endLine = endLine;
 
     // covers the selected area
     const svgWidth = parseFloat(this.svgElement.getAttribute("width").replace("%", "")) / 100;
@@ -188,5 +207,21 @@ export default class PianoRoll {
     overlay.setAttribute("height", this.svgElement.getAttribute("height"));
     overlay.setAttribute("style", "fill:rgba(171,134,255,0.3)");
     this.svgElement.insertBefore(overlay, this.svgElement.firstChild);
+    this.overlay = overlay;
+  }
+
+  removeSelection() {
+    if (this.startLine) {
+      this.svgElement.removeChild(this.startLine);
+      this.startLine = null;
+    }
+    if (this.endLine) {
+      this.svgElement.removeChild(this.endLine);
+      this.endLine = null;
+    }
+    if (this.overlay) {
+      this.svgElement.removeChild(this.overlay);
+      this.overlay = null;
+    }
   }
 }
