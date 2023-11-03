@@ -24,9 +24,9 @@ export default class PianoRoll {
     this.end = null;
 
     // PianoRoll brand #5DB5D5
-    const backgroundStartColor = { r: 93, g: 181, b: 213 };
+    const backgroundStartColor = { r: 138, g: 184, b: 122 };
     // #154151
-    const backgroundEndColor = { r: 21, g: 65, b: 81 };
+    const backgroundEndColor = { r: 138, g: 184, b: 122 };
     this.backgroundColormap = generateGradientTable(backgroundStartColor, backgroundEndColor, 128);
 
     const noteStartColor = { r: 66, g: 66, b: 61 };
@@ -205,7 +205,7 @@ export default class PianoRoll {
     overlay.setAttribute("y", 0);
     overlay.setAttribute("width", ((this.endSelection - this.startSelection) / this.end) * svgWidth);
     overlay.setAttribute("height", this.svgElement.getAttribute("height"));
-    overlay.setAttribute("style", "fill:rgba(171,134,255,0.3)");
+    overlay.setAttribute("style", "fill:rgba(255,255,255,0.8)");
     this.svgElement.insertBefore(overlay, this.svgElement.firstChild);
     this.overlay = overlay;
   }

@@ -3,6 +3,15 @@
   --secondary-color: #ececec;
   --third-color: #da674a;
   --fourth-color: #16161d;
+  --background-cards-color: #4b4b4f;
+  --background-cards-light-color: #808080;
+  --scroll-hover-color: #8ab87a;
+
+  --primary-text-color: #16161d;
+  --secondary-text-color: #ececec;
+
+  --primary-text-font: ;
+  --secondary-text-font: "Poppins", sans-serif;
 }
 
 * {
@@ -12,9 +21,9 @@
 }
 
 body {
-  font-family: "Mulish", sans-serif;
+  font-family: "MuseoModerno", sans-serif;
   cursor: default;
-  background-color: var(--primary-color);
+  background-color: var(--background-cards-color);
   color: #1c1c1a;
   height: 100vh; /* Use viewport height instead of 100% to occupy full screen height */
   text-align: center;
@@ -42,16 +51,16 @@ body {
 #pianoRollContainer {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
 }
 
 h1 {
   margin-bottom: 20px;
   font-size: 42px;
-  color: var(--fourth-color);
+  color: var(--secondary-text-color);
   padding: 1rem;
   margin: 0;
-  background-color: var(--primary-color);
+  background-color: var(--background-cards-color);
+  border-bottom: 1px solid var(--secondary-color);
 }
 
 .piano-roll-svg {
@@ -65,46 +74,59 @@ h1 {
   min-width: 20%;
   box-sizing: border-box;
   cursor: pointer;
+  border: none;
+  border-radius: 1rem;
+  background-color: var(--background-cards-light-color);
+  color: var(--secondary-text-color);
+  box-shadow: 0 0 10px var(--fourth-color);
+}
+
+.card-hover:hover {
+  transform: scale(1.05);
+  transition: 1s;
 }
 
 .description {
   margin-top: 10px;
+  font-family: var(--secondary-text-font);
 }
 
-.rightColumn {
+.right-column {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   width: 100vw;
   gap: 1rem;
-}
-
-.leftColumn {
-  width: auto;
+  padding-top: 1rem;
+  max-height: 80vh;
+  overflow: scroll;
+  overflow-x: hidden;
 }
 
 .big-card {
   order: -1;
   width: 90%;
-  padding: 0;
+  padding: 1rem;
   margin: auto;
 }
 
 .small-card {
   width: 80%;
-  padding: 0;
+  padding: 1rem;
   margin: auto;
+  margin-top: 1rem;
 }
 
 .left-large {
   width: 100%;
-  background-color: var(--secondary-color);
-  padding: 2rem 0;
+  background-color: var(--background-cards-color);
+  padding: 1rem 0;
 }
 
 .right-narrow {
-  width: 60%;
+  width: 80%;
   margin: auto;
+  background-color: var(--background-cards-color);
 }
 
 svg {
@@ -125,14 +147,14 @@ svg {
   }
 
   .left-large {
-    width: 80%;
+    width: 75%;
     display: flex;
     justify-content: center;
     align-items: baseline;
   }
 
   .right-narrow {
-    width: 20%;
+    width: 25%;
     margin: 0;
     max-height: 80vh;
     overflow-y: auto;
@@ -146,4 +168,23 @@ svg {
 
 .backgroundStartColor {
   color: var(--third-color);
+}
+
+::-webkit-scrollbar {
+  width: 1rem;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px var(--background-cards-light-color);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--secondary-color);
+  box-shadow: inset 0 0 5px var(--background-cards-light-color);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scroll-hover-color);
 }

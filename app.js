@@ -22,6 +22,7 @@ class PianoRollDisplay {
     const cardDiv = document.createElement("div");
     cardDiv.classList.add("piano-roll-card");
     cardDiv.id = `cardDiv${rollId}`;
+    cardDiv.classList.add("card-hover");
 
     // Create and append other elements to the card container as needed
 
@@ -41,7 +42,7 @@ class PianoRollDisplay {
 
         leftColumn.classList.remove("leftColumn");
         leftColumn.classList.add("left-large");
-        rightColumn.classList.remove("rightColumn");
+        rightColumn.classList.remove("right-column");
         rightColumn.classList.add("right-narrow");
 
         const all = document.querySelectorAll(".piano-roll-card");
@@ -50,6 +51,7 @@ class PianoRollDisplay {
         });
 
         actual.classList.add("big-card");
+        actual.classList.remove("card-hover");
 
         leftColumn.appendChild(actual);
 
@@ -104,7 +106,7 @@ class PianoRollDisplay {
     const leftColumn = document.createElement("section");
     leftColumn.classList.add("leftColumn");
     const rightColumn = document.createElement("section");
-    rightColumn.classList.add("rightColumn");
+    rightColumn.classList.add("right-column");
 
     container.appendChild(leftColumn);
     container.appendChild(rightColumn);
@@ -115,7 +117,7 @@ class PianoRollDisplay {
       const partData = this.data.slice(start, end);
 
       const { cardDiv, svg } = this.preparePianoRollCard(it);
-      const rightColumn = document.querySelector(".rightColumn");
+      const rightColumn = document.querySelector(".right-column");
       rightColumn.appendChild(cardDiv);
       const roll = new PianoRoll(svg, partData);
     }
@@ -129,3 +131,8 @@ csvToSVG
   .catch((error) => {
     console.error(error);
   });
+
+const linkLogo = document.querySelector(".logo-container");
+linkLogo.addEventListener("click", () => {
+  location.href = "index.html";
+});
