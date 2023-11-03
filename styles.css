@@ -1,6 +1,6 @@
 :root {
   --primary-color: #fff;
-  --secondary-color: #f7f0f0;
+  --secondary-color: #ececec;
   --third-color: #da674a;
   --fourth-color: #16161d;
 }
@@ -14,7 +14,7 @@
 body {
   font-family: "Mulish", sans-serif;
   cursor: default;
-  background-color: #f0f0f0;
+  background-color: var(--primary-color);
   color: #1c1c1a;
   height: 100vh; /* Use viewport height instead of 100% to occupy full screen height */
   text-align: center;
@@ -50,6 +50,7 @@ h1 {
   color: var(--fourth-color);
   padding: 1rem;
   margin: 0;
+  background-color: var(--primary-color);
 }
 
 .piano-roll-svg {
@@ -89,13 +90,15 @@ h1 {
 }
 
 .small-card {
-  width: 100%;
+  width: 80%;
   padding: 0;
   margin: auto;
 }
 
 .left-large {
   width: 100%;
+  background-color: var(--secondary-color);
+  padding: 2rem 0;
 }
 
 .right-narrow {
@@ -104,13 +107,19 @@ h1 {
 }
 
 svg {
+  width: 100%;
   pointer-events: none;
+}
+
+.big-card svg {
+  pointer-events: all;
 }
 
 @media (min-width: 750px) {
   #pianoRollContainer {
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: space-between;
     gap: 0;
   }
 
@@ -122,12 +131,18 @@ svg {
   }
 
   .right-narrow {
-    width: auto;
+    width: 20%;
+    margin: 0;
     max-height: 80vh;
     overflow-y: auto;
+    position: relative;
   }
 
   .big-card {
     margin: 0;
   }
+}
+
+.backgroundStartColor {
+  color: var(--third-color);
 }

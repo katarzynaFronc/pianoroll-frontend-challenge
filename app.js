@@ -29,8 +29,6 @@ class PianoRollDisplay {
       if (!e.target.classList.contains("piano-roll-card")) {
         return;
       } else {
-        // console.log(e.target);
-
         const actual = e.target;
         const rightColumn = actual.parentElement;
         const leftColumn = rightColumn.previousElementSibling;
@@ -52,6 +50,7 @@ class PianoRollDisplay {
         });
 
         actual.classList.add("big-card");
+
         leftColumn.appendChild(actual);
 
         const smallCards = document.querySelectorAll(".piano-roll-card:not(.big-card)");
