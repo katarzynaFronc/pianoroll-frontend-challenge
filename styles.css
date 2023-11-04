@@ -5,7 +5,6 @@
   --background-cards-light-color: #808080;
   --navbar-color: #608055;
   --scroll-hover-color: #8ab87a;
-
   --primary-text-color: #16161d;
   --secondary-text-color: #ececec;
 
@@ -36,7 +35,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #608055;
+  background-color: var(--navbar-color);
   box-shadow: 0 0 10px var(--secondary-color);
 }
 

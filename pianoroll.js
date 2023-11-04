@@ -14,9 +14,10 @@ export default class PianoRoll {
     this.svgElement = svgElement;
 
     if (this.svgElement) {
-      this.svgElement.addEventListener("mousedown", this.handleMouseDown.bind(this));
-      this.svgElement.addEventListener("mousemove", this.handleMouseMove.bind(this));
-      this.svgElement.addEventListener("mouseup", this.handleMouseUp.bind(this));
+      this.svgElement.style.touchAction = "none";
+      this.svgElement.addEventListener("pointerdown", this.handlePointerDown.bind(this));
+      this.svgElement.addEventListener("pointermove", this.handlePointerMove.bind(this));
+      this.svgElement.addEventListener("pointerup", this.handlePointerUp.bind(this));
     } else {
       console.error(`SVG element with id ${svgElement} does not exist`);
     }
@@ -142,33 +143,39 @@ export default class PianoRoll {
     }
   }
 
-  handleMouseDown(event) {
+  handlePointerDown(event) {
     event.preventDefault();
-
     if (this.svgElement) {
       const rect = this.svgElement.getBoundingClientRect();
-      const x = event.clientX - rect.left;
+      let x;
+      if (event.type === "touchstart") {
+        x = event.touches[0].clientX - rect.left;
+      } else {
+        x = event.clientX - rect.left;
+      }
       const time = (this.end * x) / rect.width;
-
       this.startSelection = time;
     }
   }
 
-  handleMouseMove(event) {
+  handlePointerMove(event) {
     event.preventDefault();
-
     if (this.svgElement && this.startSelection) {
       const rect = this.svgElement.getBoundingClientRect();
-      const x = event.clientX - rect.left;
+      let x;
+      if (event.type === "touchmove") {
+        x = event.touches[0].clientX - rect.left;
+      } else {
+        x = event.clientX - rect.left;
+      }
       const time = (this.end * x) / rect.width;
       this.endSelection = time;
       this.highlightSelection();
     }
   }
 
-  handleMouseUp(event) {
+  handlePointerUp(event) {
     event.preventDefault();
-
     if (this.svgElement) {
       console.log(`Selected passage: start = ${this.startSelection}, end = ${this.endSelection}`);
       this.startSelection = null;
