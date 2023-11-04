@@ -3,7 +3,8 @@
   --secondary-color: #16161d;
   --background-cards-color: #4b4b4f;
   --background-cards-light-color: #808080;
-  --scroll-hover-color: #608055;
+  --navbar-color: #608055;
+  --scroll-hover-color: #8ab87a;
 
   --primary-text-color: #16161d;
   --secondary-text-color: #ececec;
@@ -83,6 +84,7 @@ h1 {
 .card-hover:hover {
   transform: scale(1.05);
   transition: 1s;
+  box-shadow: 0 0 10px var(--scroll-hover-color);
 }
 
 .description {
