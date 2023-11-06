@@ -25,7 +25,7 @@ class PianoRollDisplay {
     cardDiv.classList.add("card-hover");
 
     // Create and append other elements to the card container as needed
-
+    // Handle click event
     const clickCard = (e) => {
       if (!e.target.classList.contains("piano-roll-card")) {
         return;
@@ -39,22 +39,26 @@ class PianoRollDisplay {
           leftColumn.removeChild(oldCard);
           rightColumn.appendChild(oldCard);
         }
-
+        
+     // Create new classes for column
         leftColumn.classList.remove("leftColumn");
         leftColumn.classList.add("left-large");
         rightColumn.classList.remove("right-column");
         rightColumn.classList.add("right-narrow");
-
+        
+    // Reset classes of cardDiv
         const all = document.querySelectorAll(".piano-roll-card");
         all.forEach((e) => {
           e.classList.remove("small-card", "big-card");
         });
 
+    // Add big-card to actual card 
         actual.classList.add("big-card");
         actual.classList.remove("card-hover");
 
         leftColumn.appendChild(actual);
 
+    // Add small-card class to the rest cardDiv
         const smallCards = document.querySelectorAll(".piano-roll-card:not(.big-card)");
 
         smallCards.forEach((smallCard) => {
@@ -64,6 +68,7 @@ class PianoRollDisplay {
           }
         });
 
+    // Sort cards with small-card class to display in right order
         const cards = Array.from(document.querySelectorAll(".small-card"));
         cards.sort((a, b) => {
           const idA = parseInt(a.id.split("cardDiv")[1]);
@@ -75,6 +80,7 @@ class PianoRollDisplay {
       }
     };
 
+    // Add event listener to every cardDiv
     cardDiv.addEventListener("click", clickCard);
 
     // ----------------------------------------------------------------
@@ -132,6 +138,7 @@ csvToSVG
     console.error(error);
   });
 
+// Navigate to the "index.html" page
 const linkLogo = document.querySelector(".logo-container");
 linkLogo.addEventListener("click", () => {
   location.href = "index.html";
