@@ -12,7 +12,8 @@ export function generateGradientTable(startColor, endColor, steps) {
 export default class PianoRoll {
   constructor(svgElement, sequence) {
     this.svgElement = svgElement;
-
+    
+    // Adding event listeners to svgElement
     if (this.svgElement) {
       this.svgElement.style.touchAction = "none";
       this.svgElement.addEventListener("pointerdown", this.handlePointerDown.bind(this));
@@ -41,6 +42,7 @@ export default class PianoRoll {
     this.drawPianoRoll(sequence);
   }
 
+  // Define a method named timeToX
   timeToX(time) {
     return time / this.end;
   }
@@ -143,6 +145,7 @@ export default class PianoRoll {
     }
   }
 
+  // Adding pointerdown event to start selection
   handlePointerDown(event) {
     event.preventDefault();
     if (this.svgElement) {
@@ -158,6 +161,7 @@ export default class PianoRoll {
     }
   }
 
+  // Adding pointermove event to continue selection
   handlePointerMove(event) {
     event.preventDefault();
     if (this.svgElement && this.startSelection) {
@@ -174,6 +178,7 @@ export default class PianoRoll {
     }
   }
 
+  // Adding pointerup event to end selection
   handlePointerUp(event) {
     event.preventDefault();
     if (this.svgElement) {
@@ -183,6 +188,7 @@ export default class PianoRoll {
     }
   }
 
+  // Adding visual effect of selection
   highlightSelection() {
     this.removeSelection();
 
@@ -217,6 +223,7 @@ export default class PianoRoll {
     this.overlay = overlay;
   }
 
+  // Remove selection before start another
   removeSelection() {
     if (this.startLine) {
       this.svgElement.removeChild(this.startLine);
